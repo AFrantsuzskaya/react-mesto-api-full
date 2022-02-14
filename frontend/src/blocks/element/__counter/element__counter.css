@@ -1,0 +1,8 @@
+.element__counter {
+ /* min-height: 13px;
+  min-width: 10px;*/
+  font-size: 13px;
+  line-height: 16px;
+  text-align: center;
+  color: black;
+}

@@ -1,0 +1,11 @@
+.profile__overlay {
+  background: center center transparent url('../../../images/Vector.png') no-repeat;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.profile__overlay:hover {
+  opacity: 0.7;
+}

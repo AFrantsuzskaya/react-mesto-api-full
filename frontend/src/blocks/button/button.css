@@ -1,0 +1,8 @@
+.button {
+    box-sizing: border-box;
+    border-style: solid;
+    border-color: white;
+    padding: 0;
+    cursor: pointer;
+    transition: opacity 1s linear;
+}

@@ -1,0 +1,21 @@
+.logo {
+  background: url('../../images/logo.svg') no-repeat;
+  width: 142px;
+  height: 29px;
+  padding-top: 45px;
+  cursor: pointer;
+  transition: opacity 1s linear;
+}
+
+.logo:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width:767px) {
+  .logo {
+    background: url('../../images/logo-767.svg') no-repeat;
+    width: 103px;
+    height: 24px;
+    padding: 0;
+  }
+}
