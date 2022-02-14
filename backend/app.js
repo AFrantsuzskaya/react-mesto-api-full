@@ -9,7 +9,7 @@ const routerUsers = require('./routes/users');
 const routesCards = require('./routes/cards');
 
 const { createUser, login } = require('./controllers/users');
-const { requestLogger, errorLogger } = require('./middlewares/logger');
+const { requestLogger, errorLogger } = require('./middleware/logger');
 const auth = require('./middleware/auth');
 const errorHandler = require('./middleware/error-handler');
 const NotFoundError = require('./errors/not-found-error');
