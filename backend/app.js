@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
@@ -17,6 +18,11 @@ const validateURL = require('./middleware/validation-request');
 
 const { PORT = 3009 } = process.env;
 const app = express();
+
+app.use('*', cors({
+  origin: 'https://afrantsuzskaya.students.nomoredomains.xyz',
+  credentials: true,
+}));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

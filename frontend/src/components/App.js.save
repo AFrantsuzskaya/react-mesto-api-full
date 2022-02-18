@@ -70,8 +70,8 @@ function App() {
       auth 
         .checkToken(localStorage.getItem('jwt'))
         .then((res) => {
-          console.log(res)
-          console.log(res.data)
+console.log(res)
+console.log(res.data)
           if (res.data) {
             setEmail(localStorage.getItem('email'))
             setLoggedIn(true)
@@ -90,8 +90,7 @@ function App() {
     auth
       .authorize(password, email)
       .then((data) => {
-        console.log(data)
-        
+console.log(data)
         if (data.message = 'успешная авторизация') {
           setLoggedIn(true)
           setEmail(localStorage.getItem('email'))
@@ -119,6 +118,7 @@ function App() {
     auth
       .register(password, email)
       .then(res => {
+
         if (res.email) {
           setInfoToolTips(true);
           navigate('/signin')
@@ -200,15 +200,13 @@ function App() {
     console.log(typeof currentUser._id);
     // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some(i => i === currentUser._id);
-    console.log(card._id)
-    
     console.log(isLiked)
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api
       .toggleLike(card._id, !isLiked)
-      .then((newCard) => { 
+      .then((newCard) => {
         setCards((cards) => cards.map((c) => c._id === card._id ? newCard : c));
-   })
+    })
       .catch((err) => console.log(`Ошибка постановки/снятия лайка: ${err}`))
   }
   

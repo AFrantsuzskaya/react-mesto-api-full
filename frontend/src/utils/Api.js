@@ -1,8 +1,6 @@
 class Api {
-    constructor({ address, groupId, token }) {
+    constructor({ address }) {
         this._address = address
-        this._groupId = groupId
-        this._token = token
     }
 
     getAppInfo() {
@@ -24,7 +22,8 @@ class Api {
     }
     
     getCardList() {
-        return this._get('cards')
+       const res = this._get('cards')        
+       return res
     }
     
     removeCard(id) {
@@ -37,13 +36,14 @@ class Api {
     }
     
     toggleLike(id, liked) {
-      return this._set(`cards/likes/${id}`, liked ? 'PUT' : 'DELETE')
+      return this._set(`cards/${id}/likes`, liked ? 'PUT' : 'DELETE')
     }
 
     _get(query) {
       const options = {
+        credentials: 'include',
         headers: {
-          authorization: this._token
+          'Content-Type': 'application/json'
         }
       }
       return fetch(this.createUrl(query), options)
@@ -53,8 +53,8 @@ class Api {
     _set(query, method, body) {
       const options = {
         method,
+        credentials: 'include',
         headers: {
-          authorization: this._token,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(body)
@@ -69,14 +69,12 @@ class Api {
 
 
     createUrl(query) {
-      return `${this._address}/${this._groupId}/${query}`
+      return `${this._address}/${query}`
     }
 }
 
 const api = new Api({
-  address: 'https://mesto.nomoreparties.co/v1',
-  groupId: 'cohort-29',
-  token: 'f416e76f-617f-4e84-afcd-d10e230d2054'
+  address: 'https://api.afrantsuzskaya.studen.nomoredomains.xyz'
 })
 
 export default api;

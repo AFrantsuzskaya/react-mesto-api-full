@@ -206,9 +206,16 @@ function App() {
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api
       .toggleLike(card._id, !isLiked)
-      .then((newCard) => { 
-        setCards((cards) => cards.map((c) => c._id === card._id ? newCard : c));
-   })
+      .then((newCard) => {
+        setCards((cards) => {
+          cards.map((c) => {
+            console.log(isLiked)
+            console.log(c._id)
+            if(c._id === card._id) {
+         return newCard 
+         } else { c }
+          }));
+    })
       .catch((err) => console.log(`Ошибка постановки/снятия лайка: ${err}`))
   }
   

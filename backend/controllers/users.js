@@ -17,13 +17,11 @@ module.exports.createUser = (req, res, next) => {
     }))
     .then((user) => {
       res.status(201).send({
-        data: {
           name: user.name,
           about: user.about,
           avatar: user.avatar,
           email: user.email,
-        },
-      });
+        });
     })
     .catch((err) => {
       if (err.name === 'MongoError' || err.code === 11000) {
@@ -38,7 +36,7 @@ module.exports.createUser = (req, res, next) => {
 
 module.exports.getUsers = (req, res, next) => {
   User.find({})
-    .then((users) => res.status(200).send({ data: users }))
+    .then((users) => res.status(200).send(users))
     .catch(next);
 };
 
@@ -46,7 +44,7 @@ module.exports.getUser = (req, res, next) => {
   User.findById(req.params.id)
     .then((user) => {
       if (user) {
-        res.status(200).send({ data: user });
+        res.status(200).send(user);
       } else {
         throw new NotFoundError(`Пользователь с id: ${req.params.id} не найден`);
       }
@@ -73,7 +71,7 @@ module.exports.patchUser = (req, res, next) => {
   User
     .findByIdAndUpdate(myId, { name, about }, { new: true, runValidators: true })
     .orFail(new NotFoundError(`Пользователь с id: ${myId} не найден`))
-    .then((user) => res.send({ data: user }))
+    .then((user) => res.send(user))
     .catch((err) => {
       if (err.name === 'ValidationError' || err.name === 'CastError') {
         next(new BadRequestError('Переданы некорректные данные при обновлении профиля'));
@@ -87,7 +85,7 @@ module.exports.patchUserAvatar = (req, res, next) => {
   const myId = req.user._id;
   const { avatar } = req.body;
   User.findByIdAndUpdate(myId, { avatar }, { new: true, runValidators: true })
-    .then((user) => res.send({ data: user }))
+    .then((user) => res.send(user))
     .catch((err) => {
       if (err.name === 'ValidationError' || err.name === 'CastError') {
         next(new BadRequestError('Переданы некорректные данные при обновлении профиля'));
@@ -109,9 +107,14 @@ module.exports.login = (req, res, next) => {
       );
       res.cookie('jwt', token, {
         maxAge: 3600000 * 24 * 7,
+        //httpOnly: true,
+        secure: true,
         httpOnly: true,
-        sameSite: true,
-      }).send({ message: 'успешная авторизация' })
+       // sameSite: false,       
+// sameSite: true,            
+        SameSite: 'none',
+       // secure: true, 
+      }).send({ message: 'успешеая авторизация' })
         .end();
     })
     .catch(next);
