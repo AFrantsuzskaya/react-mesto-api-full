@@ -34,7 +34,6 @@ function App() {
     api
       .getAppInfo()
       .then(([user, cards]) => {
-        console.log(user, cards)
         navigate('/')        
         setCurrentUser(user);
         setCards(cards);
@@ -70,8 +69,6 @@ function App() {
       auth 
         .checkToken(localStorage.getItem('jwt'))
         .then((res) => {
-          console.log(res)
-          console.log(res.data)
           if (res.data) {
             setEmail(localStorage.getItem('email'))
             setLoggedIn(true)
@@ -193,13 +190,8 @@ function App() {
   }
   
   function handleCardLike(card) {
-    console.log(typeof card.likes[0]);
-    console.log(typeof currentUser._id);
     // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some(i => i === currentUser._id);
-    console.log(card._id)
-    
-    console.log(isLiked)
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api
       .toggleLike(card._id, !isLiked)
