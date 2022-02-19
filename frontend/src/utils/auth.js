@@ -15,11 +15,6 @@ export const register = (password, email) => {
       body: JSON.stringify({password, email})
     })
     .then((res) => checkResponse(res)
-      /*if (res.ok) {
-        return res.json()
-      } else {
-        return Promise.reject(res)
-      }*/
    )
 };
 
@@ -30,20 +25,14 @@ export const authorize = (password, email) => {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        //'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify({password, email})
     })
     .then((res) => {
-      console.log(res)
-      console.log(res.headers) 
-      console.log(res.headers['set-cookie'])
-      
       return res
      })
     .then((res) => checkResponse(res))
     .then(data => {
-      //localStorage.setItem('jwt', data.token);
       localStorage.setItem('email', email);
       return data;
     });

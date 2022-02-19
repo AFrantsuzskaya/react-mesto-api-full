@@ -28,28 +28,7 @@ function App() {
   const [isInfoToolTipsOpened, setIsInfoToolTipsOpened] = React.useState(false);
  
   const navigate = useNavigate();
- /*   
-  React.useEffect(() => {
-    checkToken()
-  }, [])
 
-  React.useEffect(() => {
-    if(setLoggedIn(true)) { 
-     navigate('/')
-    } else {
-      navigate('/signin')
-    }
-  }, [loggedIn])
-*/
-  /*React.useEffect(() => {
-    api
-      .getAppInfo()
-      .then(([user, cards]) => {
-        setCurrentUser(user);
-        setCards(cards);
-      })
-      .catch((err) => console.log(`Ошибка загрузки данных: ${err}`))
-  }, [])*/
   React.useEffect(() => {
     setEmail(localStorage.getItem('email'))
     api
@@ -59,12 +38,8 @@ function App() {
         navigate('/')        
         setCurrentUser(user);
         setCards(cards);
-        //navigate('/')
       })
       .catch((err) => {
-         console.log(err)
-        console.log(err.name)
-        console.log(err.code)
         if(err === 'Ошибка: 401') {
           setLoggedIn(false)
           navigate('/signin')
@@ -102,7 +77,6 @@ function App() {
             setLoggedIn(true)
             navigate('/')
           } else {
-            //localStorage.removeItem('jwt')
             setLoggedIn(false)
             setEmail('')
           }

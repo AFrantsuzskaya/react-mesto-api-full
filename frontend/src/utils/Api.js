@@ -44,7 +44,6 @@ class Api {
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
-          //'Authorization': `Bearer ${token}`
         }
       }
       return fetch(this.createUrl(query), options)
@@ -57,7 +56,6 @@ class Api {
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
-          //'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(body)
       }
