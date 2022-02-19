@@ -22,13 +22,13 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState(null);
   const [cards, setCards] = React.useState([]);
   const [currentUser, setCurrentUser] = React.useState({});
-  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [loggedIn, setLoggedIn] = React.useState(true);
   const [email, setEmail] = React.useState('');
   const [infoToolTips, setInfoToolTips] = React.useState(null);
   const [isInfoToolTipsOpened, setIsInfoToolTipsOpened] = React.useState(false);
  
   const navigate = useNavigate();
-    
+ /*   
   React.useEffect(() => {
     checkToken()
   }, [])
@@ -39,9 +39,9 @@ function App() {
     } else {
       navigate('/signin')
     }
-  }, [])
-
-  React.useEffect(() => {
+  }, [loggedIn])
+*/
+  /*React.useEffect(() => {
     api
       .getAppInfo()
       .then(([user, cards]) => {
@@ -49,7 +49,31 @@ function App() {
         setCards(cards);
       })
       .catch((err) => console.log(`Ошибка загрузки данных: ${err}`))
-  }, [])
+  }, [])*/
+  React.useEffect(() => {
+    setEmail(localStorage.getItem('email'))
+    api
+      .getAppInfo()
+      .then(([user, cards]) => {
+        console.log(user, cards)
+        navigate('/')        
+        setCurrentUser(user);
+        setCards(cards);
+        //navigate('/')
+      })
+      .catch((err) => {
+         console.log(err)
+        console.log(err.name)
+        console.log(err.code)
+        if(err === 'Ошибка: 401') {
+          setLoggedIn(false)
+          navigate('/signin')
+        } else {
+          console.log(`Ошибка загрузки данных: ${err}`)
+          navigate('/signin')
+        }      
+      })
+  }, [loggedIn])
    
   React.useEffect(() => {
     if (isProfilePopupOpen || isAddPlacePopupOpen || isAvatarPopupOpen || selectedCard) {
@@ -66,6 +90,7 @@ function App() {
   }, [isProfilePopupOpen, isAddPlacePopupOpen, isAvatarPopupOpen, selectedCard])
 
   function checkToken() {
+    console.log(document.cookie)
     if (localStorage.getItem('jwt')) {
       auth 
         .checkToken(localStorage.getItem('jwt'))
@@ -90,8 +115,6 @@ function App() {
     auth
       .authorize(password, email)
       .then((data) => {
-        console.log(data)
-        
         if (data.message = 'успешная авторизация') {
           setLoggedIn(true)
           setEmail(localStorage.getItem('email'))
@@ -109,8 +132,8 @@ function App() {
 
   function handleLogout (event) {
     event.preventDefault()
-    localStorage.removeItem('jwt')   
     setLoggedIn(false)
+    localStorage.removeItem('email')
     setEmail('')
     navigate('/signin')
   }

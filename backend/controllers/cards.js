@@ -18,7 +18,7 @@ module.exports.createCard = (req, res, next) => {
 };
 
 module.exports.getCards = (req, res, next) => {
-  Cards.find({})
+  Cards.find({}).sort({createdAt: 'desc'})
     .then((cards) => res.send(cards))
     .catch(next);
 };
@@ -33,7 +33,7 @@ module.exports.deleteCard = (req, res, next) => {
         return next(new ForbiddenError('Не достаточно прав на удаление карточки'));
       }
       return card.remove()
-        .then(() => res.send('Карточка удалена'))
+        .then(() => res.send({ meesage: 'Карточка удалена' }))
         .catch(next);
     })
     .catch(next);

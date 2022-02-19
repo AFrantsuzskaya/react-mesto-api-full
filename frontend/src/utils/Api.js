@@ -43,7 +43,8 @@ class Api {
       const options = {
         credentials: 'include',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          //'Authorization': `Bearer ${token}`
         }
       }
       return fetch(this.createUrl(query), options)
@@ -55,7 +56,8 @@ class Api {
         method,
         credentials: 'include',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          //'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(body)
       }
@@ -64,6 +66,7 @@ class Api {
     }
     
     _checkResponse(res) {
+      console.log(res)
       return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
     }
 

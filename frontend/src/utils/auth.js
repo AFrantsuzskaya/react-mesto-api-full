@@ -1,7 +1,6 @@
 const BASE_URL = 'https://api.afrantsuzskaya.studen.nomoredomains.xyz';
 
 function checkResponse (res) {
-  console.log(res)
   return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
 }
 
@@ -30,13 +29,21 @@ export const authorize = (password, email) => {
       credentials: 'include',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        //'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify({password, email})
     })
+    .then((res) => {
+      console.log(res)
+      console.log(res.headers) 
+      console.log(res.headers['set-cookie'])
+      
+      return res
+     })
     .then((res) => checkResponse(res))
     .then(data => {
-      localStorage.setItem('jwt', data.token);
+      //localStorage.setItem('jwt', data.token);
       localStorage.setItem('email', email);
       return data;
     });
