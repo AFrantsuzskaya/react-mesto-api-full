@@ -12,7 +12,7 @@
   * grid
   * БЭМ
   * Webpack
-  
+
 **Backend:**
   * Node.js
   * MongoDB
@@ -29,6 +29,7 @@
 # bacend/
 1. Установить npm зависимости: npm install
 2. Запустить MongoDB: mongod
-3. Запустить проект: npm run start или npn run dev (запуск сервера с hot-reload)
+3. Запустить проект: npm run start
 
+## Ссылка 
 * [Ссылка на проект](https://mesto.frantsuzskiy.ru/)
