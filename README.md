@@ -12,6 +12,7 @@
   * grid
   * БЭМ
   * Webpack
+  
 **Backend:**
   * Node.js
   * MongoDB
